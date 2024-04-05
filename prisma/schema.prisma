@@ -30,7 +30,6 @@ model User {
 model Habit {
   id           String         @id @default(uuid())
   name         String
-  Streak       Int
   userId       String
   createdAt    DateTime       @default(now())
   updatedAt    DateTime       @updatedAt
@@ -67,7 +66,7 @@ model DayHabit {
 model HabitWeekDay {
   id        String   @id @default(uuid())
   habitId   String
-  weekDay   String
+  weekDay   Int
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 

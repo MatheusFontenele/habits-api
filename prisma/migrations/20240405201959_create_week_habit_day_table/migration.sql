@@ -2,7 +2,7 @@
 CREATE TABLE "habit_week_days" (
     "id" TEXT NOT NULL,
     "habitId" TEXT NOT NULL,
-    "weekDay" TEXT NOT NULL,
+    "weekDay" INTEGER NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
