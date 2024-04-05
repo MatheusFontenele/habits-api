@@ -1,0 +1,13 @@
+version: '3.1'
+
+services:
+  habits-pgsql:
+    container_name: habits-pgsql
+    image: bitnami/postgresql
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRESQL_USERNAME=docker
+      - POSTGRESQL_PASSWORD=Senha123
+      - POSTGRESQL_DATABASE=habits
+    
