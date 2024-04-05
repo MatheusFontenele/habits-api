@@ -28,13 +28,36 @@ model User {
 }
 
 model Habit {
-  id        String   @id @default(uuid())
+  id        String     @id @default(uuid())
   name      String
   Streak    Int
   userId    String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  User      User     @relation(fields: [userId], references: [id])
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  User      User       @relation(fields: [userId], references: [id])
+  DayHabit  DayHabit[]
 
   @@map("habits")
+}
+
+model Day {
+  id       String     @id @default(uuid())
+  date     DateTime
+  DayHabit DayHabit[]
+
+  @@unique([date])
+}
+
+model DayHabit {
+  id        String   @id @default(uuid())
+  habitId   String
+  dayId     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  Habit Habit @relation(fields: [habitId], references: [id])
+  Day   Day   @relation(fields: [dayId], references: [id])
+
+  @@unique([habitId, dayId])
+  @@map("day_habits")
 }
