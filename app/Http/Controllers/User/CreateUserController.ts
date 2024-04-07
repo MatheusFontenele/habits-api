@@ -15,15 +15,17 @@ export async function createUserController(
   })
 
   const { name, email, password, avatar } = createBodySchema.parse(request.body);
-
   const createUserUseCase = MakeCreateUserFactory();
+  try {
+    await createUserUseCase.execute({
+      name,
+      email,
+      password,
+      avatar
+    });
 
-  await createUserUseCase.execute({
-    name,
-    email,
-    password,
-    avatar
-  });
-
-  return reply.status(201).send();
+    return reply.status(201).send();
+  } catch (error) {
+    return reply.status(500).send({ error: error });
+  }
 }

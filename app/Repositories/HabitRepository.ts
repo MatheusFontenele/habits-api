@@ -8,14 +8,14 @@ export class HabitRepository implements IHabitRepository {
     return await prisma.habit.create({
       data: {
         name: data.name,
-        HabitWeekDay: {
+        weekDays: {
           create: data.weekDays.map((weekDay) => {
             return {
-              weekDay: weekDay
+              week_day: weekDay
             }
           })
         },
-        userId: data.userId
+        user_id: data.user_id
       }
     })
   }
@@ -24,6 +24,26 @@ export class HabitRepository implements IHabitRepository {
     return await prisma.habit.findUnique({
       where: {
         id
+      }
+    })
+  }
+
+  async getHabitsOnDate(
+    date: Date, 
+    weekDay: number,
+    user_id: string
+  ): Promise<IHabit[] | null> {
+    return await prisma.habit.findMany({
+      where: {
+        user_id,
+        created_at: {
+          lte: date
+        },
+        weekDays: {
+          some: {
+            week_day: weekDay
+          }
+        }
       }
     })
   }

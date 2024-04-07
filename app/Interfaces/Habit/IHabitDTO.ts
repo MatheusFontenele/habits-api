@@ -1,5 +1,5 @@
 export interface IHabitDTO {
   name: string;
   weekDays: number[];
-  userId: string;
+  user_id: string;
 }

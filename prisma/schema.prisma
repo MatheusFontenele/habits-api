@@ -14,64 +14,63 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(uuid())
-  email     String   @unique
-  name      String?
-  password  String
-  avatar    String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  habits Habit[]
+  id         String   @id @default(uuid())
+  email      String   @unique
+  name       String?
+  password   String
+  avatar     String?
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  Habit      Habit[]
 
   @@map("users")
 }
 
 model Habit {
-  id           String         @id @default(uuid())
-  name         String
-  userId       String
-  createdAt    DateTime       @default(now())
-  updatedAt    DateTime       @updatedAt
-  User         User           @relation(fields: [userId], references: [id])
-  DayHabit     DayHabit[]
-  HabitWeekDay HabitWeekDay[]
+  id         String         @id @default(uuid())
+  name       String
+  user_id    String
+  created_at DateTime       @default(now())
+  updated_at DateTime       @updatedAt
+  User       User           @relation(fields: [user_id], references: [id])
+  dayHabit   DayHabit[]
+  weekDays   HabitWeekDay[]
 
   @@map("habits")
 }
 
 model Day {
-  id       String     @id @default(uuid())
-  date     DateTime
-  DayHabit DayHabit[]
+  id        String     @id @default(uuid())
+  date      DateTime
+  dayHabits DayHabit[]
 
   @@unique([date])
   @@map("days")
 }
 
 model DayHabit {
-  id        String   @id @default(uuid())
-  habitId   String
-  dayId     String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id         String   @id @default(uuid())
+  habit_id   String
+  day_id     String
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 
-  Habit Habit @relation(fields: [habitId], references: [id])
-  Day   Day   @relation(fields: [dayId], references: [id])
+  Habit Habit @relation(fields: [habit_id], references: [id])
+  Day   Day   @relation(fields: [day_id], references: [id])
 
-  @@unique([habitId, dayId])
+  @@unique([habit_id, day_id])
   @@map("day_habits")
 }
 
 model HabitWeekDay {
-  id        String   @id @default(uuid())
-  habitId   String
-  weekDay   Int
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id         String   @id @default(uuid())
+  habit_id   String
+  week_day   Int
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 
-  Habit Habit @relation(fields: [habitId], references: [id])
+  Habit Habit @relation(fields: [habit_id], references: [id])
 
-  @@unique([habitId, weekDay])
+  @@unique([habit_id, week_day])
   @@map("habit_week_days")
 }

@@ -14,5 +14,5 @@ export async function createHabitController(request: FastifyRequest, reply: Fast
   const { name, weekDays } = createHabitSchema.parse(request.body)
 
   const createHabitUsecase = makeCreateHabitFactory()
-  return await createHabitUsecase.execute({ name, weekDays, userId: sub })
+  return await createHabitUsecase.execute({ name, weekDays, user_id: sub })
 }

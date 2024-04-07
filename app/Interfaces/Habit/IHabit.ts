@@ -1,7 +1,7 @@
 export type IHabit = {
   id: string;
   name: string;
-  userId: string;
-  createdAt: Date;
-  updatedAt: Date;
+  user_id: string;
+  created_at: Date;
+  updated_at: Date;
 }
