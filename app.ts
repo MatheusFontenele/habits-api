@@ -10,7 +10,11 @@ export const app = fastify();
 app.register(fastifyJwt, {
   secret: env.JWT_SECRET as string, 
 })
-app.register(cors);
+app.register(cors, {
+  origin: "*",
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+});
 app.register(auth, { prefix: "/api/v1/auth" });
 app.register(user, { prefix: "/api/v1/user" });
 app.register(habit, { prefix: "/api/v1/habits" });
