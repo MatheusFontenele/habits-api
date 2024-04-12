@@ -48,8 +48,12 @@ export class HabitRepository implements IHabitRepository {
     })
   }
 
-  async list(): Promise<IHabit[]> {
-    return await prisma.habit.findMany()
+  async list(user_id: string): Promise<IHabit[]> {
+    return await prisma.habit.findMany({
+      where: {
+        user_id
+      }
+    })
   }
 
   update(id: string, data: IHabitDTO): Promise<IHabit> {

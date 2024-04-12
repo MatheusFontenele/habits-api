@@ -9,6 +9,6 @@ export interface IHabitRepository {
     weekDay: number, 
     user_id: string
   ): Promise<IHabit[] | null>;
-  list(): Promise<IHabit[]>;
+  list(user_id: string): Promise<IHabit[]>;
   update(id: string, data: IHabitDTO): Promise<IHabit>;
 }

@@ -5,6 +5,9 @@ export async function summaryHabitsController (
   request: FastifyRequest,
   reply: FastifyReply
 ) {
+  await request.jwtVerify();
+  const { sub } = request.user;
+
   try {
     const summaryHabits = await prisma.$queryRaw`
       SELECT D.id, D.date,
@@ -20,6 +23,7 @@ export async function summaryHabitsController (
         ON H.id = HWD.habit_id
         WHERE HWD.week_day = extract(dow FROM D.date::date)
         AND H.created_at <= D.date
+        AND h.user_id = ${sub}
       ) as amount
       FROM days D;
     `;
